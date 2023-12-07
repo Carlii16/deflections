@@ -1,7 +1,5 @@
-export interface ScenarioOneBeamInput {
-  /**
-   * Width of the beam in millimeters
-   */
+export interface ScenarioTwoBeamInput {
+  /* Width of the beam in millimeters */
   beamWidthInMm: number;
 
   /* Height of the beam in millimeters */
@@ -15,4 +13,10 @@ export interface ScenarioOneBeamInput {
 
   /* Location for deformation calculation in millimeters */
   deformationLocationInMm: number;
+
+  /* Location of the mobile force in millimeters */
+  mobileForceLocationInMm: number;
+
+  /* Magnitude of the force */
+  force: number;
 }
