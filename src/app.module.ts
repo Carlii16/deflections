@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { DeflectionModule } from './deflection/deflection.module';
+import { DeflectionEntity } from './entities/deflection.entity';
 
 @Module({
   imports: [
@@ -12,9 +14,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'sarmale123',
       database: 'test',
-      entities: [],
+      entities: [DeflectionEntity],
       synchronize: true,
     }),
+    DeflectionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
