@@ -5,6 +5,8 @@ import { ScenarioOneBeamOutput } from 'src/interface/output/scenario-one-beam-ou
 import { ScenarioOneBeamInputDto } from 'src/dtos/scenario-one-beam-input.dto';
 import { ScenarioTwoBeamInputDto } from 'src/dtos/scenario-two-beam-input.dto';
 import { ScenarioTwoBeamOutput } from 'src/interface/output/scenario-two-beam-output';
+import { ScenarioThreeBeamInputDto } from 'src/dtos/scenario-three-beam-input.dto';
+import { ScenarioThreeBeamOutput } from 'src/interface/output/scenario-three-beam-output';
 
 @Controller('deflections')
 export class DeflectionController {
@@ -17,10 +19,17 @@ export class DeflectionController {
     return this.deflectionService.calculateScenarioOneBeam(parameters);
   }
 
-  @Post('scenario-Two')
+  @Post('scenario-two')
   async calculateScenarioTwo(
     @Body() parameters: ScenarioTwoBeamInputDto,
   ): Promise<ScenarioTwoBeamOutput> {
     return this.deflectionService.calculateScenarioTwoBeam(parameters);
+  }
+
+  @Post('scenario-three')
+  async calculateScenarioThree(
+    @Body() parameters: ScenarioThreeBeamInputDto,
+  ): Promise<ScenarioThreeBeamOutput> {
+    return this.deflectionService.calculateScenarioThreeBeam(parameters);
   }
 }

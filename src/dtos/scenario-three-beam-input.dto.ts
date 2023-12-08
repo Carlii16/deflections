@@ -1,7 +1,7 @@
 import { IsNumber, IsPositive } from 'class-validator';
-import { ScenarioTwoBeamInput } from 'src/interface/input/scenario-two-beam-input';
+import { ScenarioThreeBeamInput } from 'src/interface/input/scenario-three-beam-input';
 
-export class ScenarioTwoBeamInputDto implements ScenarioTwoBeamInput {
+export class ScenarioThreeBeamInputDto implements ScenarioThreeBeamInput {
   @IsNumber()
   @IsPositive()
   beamWidthInMm: number;
