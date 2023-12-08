@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { DeflectionService } from './deflection.service';
 
 import { ScenarioOneBeamOutput } from 'src/interface/output/scenario-one-beam-output';
@@ -7,6 +7,7 @@ import { ScenarioTwoBeamInputDto } from 'src/dtos/scenario-two-beam-input.dto';
 import { ScenarioTwoBeamOutput } from 'src/interface/output/scenario-two-beam-output';
 import { ScenarioThreeBeamInputDto } from 'src/dtos/scenario-three-beam-input.dto';
 import { ScenarioThreeBeamOutput } from 'src/interface/output/scenario-three-beam-output';
+import { GetBeamOutput } from 'src/interface/output/get-one-beam-output';
 
 @Controller('deflections')
 export class DeflectionController {
@@ -31,5 +32,15 @@ export class DeflectionController {
     @Body() parameters: ScenarioThreeBeamInputDto,
   ): Promise<ScenarioThreeBeamOutput> {
     return this.deflectionService.calculateScenarioThreeBeam(parameters);
+  }
+
+  @Get('view-projects/:id')
+  async viewOne(@Param('id') id: number): Promise<GetBeamOutput> {
+    return this.deflectionService.viewOne(id);
+  }
+
+  @Get('view-projects')
+  async viewAll(): Promise<GetBeamOutput[]> {
+    return this.deflectionService.viewAll();
   }
 }
