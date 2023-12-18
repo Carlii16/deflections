@@ -219,17 +219,7 @@ export class DeflectionService {
 
     const scenarioOne = term1.times(term2);
 
-    let scenarioTwo = new Decimal(0); // Initializing scenarioTwo
-
-    const commonPart = new Decimal(parameters.force)
-      .times(parameters.beamWidthInMm)
-      .times(parameters.deformationLocationInMm)
-      .div(6)
-      .times(parameters.beamLengthInMm)
-      .times(this.youngsModulus)
-      .times(parameters.beamWidthInMm)
-      .times(new Decimal(parameters.beamHeightInMm).pow(3))
-      .div(12);
+    let scenarioTwo = new Decimal(0);
 
     if (
       new Decimal(0).lessThan(parameters.deformationLocationInMm) &&
