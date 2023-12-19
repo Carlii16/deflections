@@ -5,7 +5,7 @@ import { ScenarioOneBeamInputDto } from 'src/dtos/scenario-one-beam-input.dto';
 import { ScenarioThreeBeamInputDto } from 'src/dtos/scenario-three-beam-input.dto';
 import { ScenarioTwoBeamInputDto } from 'src/dtos/scenario-two-beam-input.dto';
 import { DeflectionEntity } from 'src/entities/deflection.entity';
-import { GetBeamOutput } from 'src/interface/output/get-one-beam-output';
+import { GetBeamOutput } from 'src/interface/output/get-beam-output';
 import { ScenarioOneBeamOutput } from 'src/interface/output/scenario-one-beam-output';
 import { ScenarioThreeBeamOutput } from 'src/interface/output/scenario-three-beam-output';
 import { ScenarioTwoBeamOutput } from 'src/interface/output/scenario-two-beam-output';

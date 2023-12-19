@@ -7,7 +7,7 @@ import { ScenarioTwoBeamInputDto } from 'src/dtos/scenario-two-beam-input.dto';
 import { ScenarioTwoBeamOutput } from 'src/interface/output/scenario-two-beam-output';
 import { ScenarioThreeBeamInputDto } from 'src/dtos/scenario-three-beam-input.dto';
 import { ScenarioThreeBeamOutput } from 'src/interface/output/scenario-three-beam-output';
-import { GetBeamOutput } from 'src/interface/output/get-one-beam-output';
+import { GetBeamOutput } from 'src/interface/output/get-beam-output';
 
 @Controller('deflections')
 export class DeflectionController {

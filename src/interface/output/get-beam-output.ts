@@ -1,4 +1,9 @@
-export interface ScenarioThreeBeamInput {
+export interface GetBeamOutput {
+  /**
+   * Unique identifier for the deflection
+   */
+  id: number;
+
   /**
    * Width of the beam in millimeters
    */
@@ -33,4 +38,19 @@ export interface ScenarioThreeBeamInput {
    * Location for deformation calculation in millimeters
    */
   deformationLocationInMm: number;
+
+  /**
+   * Deflection calculated for scenario one
+   */
+  deflectionOne: number;
+
+  /**
+   * Deflection calculated for scenario two
+   */
+  deflectionTwo: number;
+
+  /**
+   * Deflection calculated for scenario three
+   */
+  deflectionThree: number;
 }

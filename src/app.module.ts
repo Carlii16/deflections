@@ -4,6 +4,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DeflectionModule } from './deflection/deflection.module';
 import { DeflectionEntity } from './entities/deflection.entity';
+import { UserModule } from './users/user.module';
+import { UserEntity } from './entities/user.entity';
+import { SessionModule } from 'nestjs-session';
 
 @Module({
   imports: [
@@ -14,10 +17,11 @@ import { DeflectionEntity } from './entities/deflection.entity';
       username: 'root',
       password: 'sarmale123',
       database: 'test',
-      entities: [DeflectionEntity],
+      entities: [DeflectionEntity, UserEntity],
       synchronize: true,
     }),
     DeflectionModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
