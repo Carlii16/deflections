@@ -3,10 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeflectionEntity } from 'src/entities/deflection.entity';
 import { DeflectionService } from './deflection.service';
 import { DeflectionController } from './deflection.controller';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forFeature([DeflectionEntity])],
-  providers: [DeflectionService],
+  providers: [DeflectionService, JwtService],
   controllers: [DeflectionController],
 })
 export class DeflectionModule {}

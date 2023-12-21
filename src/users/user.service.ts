@@ -29,6 +29,16 @@ export class UserService {
     return this.userRepository.findOne({ where: { email } });
   }
 
+  async updateToken(userId: number, token: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.token = token;
+    await this.userRepository.save(user);
+  }
+
   findAll(): Promise<GetUserOutput[]> {
     return this.userRepository.find();
   }

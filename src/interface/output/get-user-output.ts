@@ -23,4 +23,9 @@ export interface GetUserOutput {
    * Password of the user
    */
   password: string;
+
+  /**
+   * Token when user sign in the platform
+   */
+  token: string;
 }

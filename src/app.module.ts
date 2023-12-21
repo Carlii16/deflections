@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DeflectionModule } from './deflection/deflection.module';
 import { DeflectionEntity } from './entities/deflection.entity';
-import { UserModule } from './users/user.module';
 import { UserEntity } from './entities/user.entity';
-import { SessionModule } from 'nestjs-session';
+import { UserModule } from './users/user.module';
+import { AuthGuard } from './guards/auth.guard';
+import { JwtModule } from '@nestjs/jwt';
+import * as crypto from 'crypto';
 
 @Module({
   imports: [
@@ -22,8 +25,20 @@ import { SessionModule } from 'nestjs-session';
     }),
     DeflectionModule,
     UserModule,
+    JwtModule.register({
+      secret: 'random123',
+      signOptions: {
+        expiresIn: '24h',
+      },
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

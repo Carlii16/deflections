@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { DeflectionService } from './deflection.service';
 
 import { ScenarioOneBeamOutput } from 'src/interface/output/scenario-one-beam-output';
@@ -8,8 +8,10 @@ import { ScenarioTwoBeamOutput } from 'src/interface/output/scenario-two-beam-ou
 import { ScenarioThreeBeamInputDto } from 'src/dtos/scenario-three-beam-input.dto';
 import { ScenarioThreeBeamOutput } from 'src/interface/output/scenario-three-beam-output';
 import { GetBeamOutput } from 'src/interface/output/get-beam-output';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('deflections')
+@UseGuards(AuthGuard)
 export class DeflectionController {
   constructor(private readonly deflectionService: DeflectionService) {}
 

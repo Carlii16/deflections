@@ -3,21 +3,28 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { scrypt as _scrypt, randomBytes } from 'crypto';
+import { JWT_SECRET_KEY } from 'src/config';
 import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { SigninUserDto } from 'src/dtos/signin-user.dto';
 import { promisify } from 'util';
 import { UserService } from './user.service';
+import * as jwt from 'jsonwebtoken';
 
 const scrypt = promisify(_scrypt);
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  private readonly secretKey: string;
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {
+    this.secretKey = JWT_SECRET_KEY;
+  }
 
   async signup(createUser: CreateUserDto) {
-    console.log('Received request to sign up:', createUser);
-
     const { email, password, lastName, firstName } = createUser;
     const users = await this.userService.findOneByEmail(email);
 
@@ -36,8 +43,6 @@ export class AuthService {
       firstName,
     });
 
-    console.log('User signed up successfully:', user);
-
     return user;
   }
 
@@ -54,9 +59,30 @@ export class AuthService {
     const hashedInputPassword = hashedBuffer.toString('hex');
 
     if (storedHash === hashedInputPassword) {
-      return user;
+      const payload = {
+        email: user.email,
+        sub: user.id,
+        iat: Math.floor(Date.now() / 1000),
+      };
+      const token = jwt.sign(payload, this.secretKey, { algorithm: 'HS256' });
+
+      user.token = token;
+      await this.userService.updateToken(user.id, token);
+
+      return { user, token };
     } else {
       throw new BadRequestException('Invalid password');
     }
+  }
+
+  async signout(userId: number) {
+    const user = await this.userService.findOne(userId);
+    console.log('Signin function called with:', userId);
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    return { message: `User with ID ${userId} has been signed out.` };
   }
 }

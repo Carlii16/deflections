@@ -17,4 +17,7 @@ export class UserEntity implements User {
 
   @Column()
   password: string;
+
+  @Column()
+  token: string;
 }

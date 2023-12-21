@@ -23,4 +23,9 @@ export interface User {
    * Password of the user
    */
   password: string;
+
+  /**
+   * Token when user sign in the platform
+   */
+  token: string;
 }
