@@ -17,10 +17,7 @@ const scrypt = promisify(_scrypt);
 @Injectable()
 export class AuthService {
   private readonly secretKey: string;
-  constructor(
-    private userService: UserService,
-    private jwtService: JwtService,
-  ) {
+  constructor(private userService: UserService) {
     this.secretKey = JWT_SECRET_KEY;
   }
 

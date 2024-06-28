@@ -18,6 +18,6 @@ export class UserEntity implements User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   token: string;
 }
