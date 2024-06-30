@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DeflectionEntity } from 'src/entities/deflection.entity';
+import { DeflectionEntity } from 'server/src/entities/deflection.entity';
 import { DeflectionService } from './deflection.service';
 import { DeflectionController } from './deflection.controller';
 import { JwtService } from '@nestjs/jwt';

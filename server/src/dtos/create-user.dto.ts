@@ -1,5 +1,5 @@
 import { IsEmail, IsString } from 'class-validator';
-import { CreateUserInput } from 'src/interface/input/create-user-input';
+import { CreateUserInput } from 'server/src/interface/input/create-user-input';
 
 export class CreateUserDto implements CreateUserInput {
   @IsEmail()

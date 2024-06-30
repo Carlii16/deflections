@@ -1,4 +1,4 @@
-import { Deflection } from 'src/interface/entities/deflection';
+import { Deflection } from 'server/src/interface/entities/deflection';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -27,12 +27,12 @@ export class DeflectionEntity implements Deflection {
   @Column({ type: 'decimal', precision: 10, nullable: true })
   deformationLocationInMm: number;
 
-  @Column({ type: 'decimal', precision: 65, nullable: true })
+  @Column({ type: 'decimal', precision: 18, scale: 15, nullable: true })
   deflectionOne: number;
 
-  @Column({ type: 'decimal', precision: 65, nullable: true })
+  @Column({ type: 'decimal', precision: 18, scale: 15, nullable: true })
   deflectionTwo: number;
 
-  @Column({ type: 'decimal', precision: 65, nullable: true })
+  @Column({ type: 'decimal', precision: 18, scale: 15, nullable: true })
   deflectionThree: number;
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scenario Two</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="scenario-one.html">Scenario One</a></li>
+        <li><a href="scenario-two.html">Scenario Two</a></li>
+        <li><a href="scenario-three.html">Scenario Three</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>Scenario Two</h1>
+      <form id="scenario2-form">
+        <!-- Form inputs for Scenario Two -->
+        <div class="form-group">
+          <label for="beamWidthInMm">Beam Width (mm):</label>
+          <input
+            type="number"
+            id="beamWidthInMm"
+            name="beamWidthInMm"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="beamHeightInMm">Beam Height (mm):</label>
+          <input
+            type="number"
+            id="beamHeightInMm"
+            name="beamHeightInMm"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="beamLengthInMm">Beam Length (mm):</label>
+          <input
+            type="number"
+            id="beamLengthInMm"
+            name="beamLengthInMm"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="beamWeightInKg">Beam Weight (kg):</label>
+          <input
+            type="number"
+            id="beamWeightInKg"
+            name="beamWeightInKg"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="deformationLocationInMm"
+            >Deformation Location (mm):</label
+          >
+          <input
+            type="number"
+            id="deformationLocationInMm"
+            name="deformationLocationInMm"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="mobileForceLocationInMm"
+            >Mobile Force Location (mm):</label
+          >
+          <input
+            type="number"
+            id="mobileForceLocationInMm"
+            name="mobileForceLocationInMm"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="force">Force (Newtons):</label>
+          <input type="number" id="force" name="force" required />
+        </div>
+        <button type="submit">Calculate Deflection</button>
+      </form>
+      <div id="scenario2-result"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

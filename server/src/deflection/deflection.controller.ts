@@ -1,17 +1,17 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { DeflectionService } from './deflection.service';
 
-import { ScenarioOneBeamOutput } from 'src/interface/output/scenario-one-beam-output';
-import { ScenarioOneBeamInputDto } from 'src/dtos/scenario-one-beam-input.dto';
-import { ScenarioTwoBeamInputDto } from 'src/dtos/scenario-two-beam-input.dto';
-import { ScenarioTwoBeamOutput } from 'src/interface/output/scenario-two-beam-output';
-import { ScenarioThreeBeamInputDto } from 'src/dtos/scenario-three-beam-input.dto';
-import { ScenarioThreeBeamOutput } from 'src/interface/output/scenario-three-beam-output';
-import { GetBeamOutput } from 'src/interface/output/get-beam-output';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { ScenarioOneBeamOutput } from 'server/src/interface/output/scenario-one-beam-output';
+import { ScenarioOneBeamInputDto } from 'server/src/dtos/scenario-one-beam-input.dto';
+import { ScenarioTwoBeamInputDto } from 'server/src/dtos/scenario-two-beam-input.dto';
+import { ScenarioTwoBeamOutput } from 'server/src/interface/output/scenario-two-beam-output';
+import { ScenarioThreeBeamInputDto } from 'server/src/dtos/scenario-three-beam-input.dto';
+import { ScenarioThreeBeamOutput } from 'server/src/interface/output/scenario-three-beam-output';
+import { GetBeamOutput } from 'server/src/interface/output/get-beam-output';
+import { AuthGuard } from 'server/src/guards/auth.guard';
 
 @Controller('deflections')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class DeflectionController {
   constructor(private readonly deflectionService: DeflectionService) {}
 

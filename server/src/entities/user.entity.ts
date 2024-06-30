@@ -1,4 +1,4 @@
-import { User } from 'src/interface/entities/user';
+import { User } from 'server/src/interface/entities/user';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()

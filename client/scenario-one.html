@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scenario One</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="scenario-one.html">Scenario One</a></li>
+        <li><a href="scenario-two.html">Scenario Two</a></li>
+        <li><a href="scenario-three.html">Scenario Three</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h2>Scenario One Calculation</h2>
+      <form id="scenario1-form">
+        <label for="beamWidth">Beam Width (mm)</label>
+        <input type="number" id="beamWidth" required />
+        <label for="beamHeight">Beam Height (mm)</label>
+        <input type="number" id="beamHeight" required />
+        <label for="beamLength">Beam Length (mm)</label>
+        <input type="number" id="beamLength" required />
+        <label for="beamWeight">Beam Weight (kg)</label>
+        <input type="number" id="beamWeight" required />
+        <label for="deformationLocation">Deformation Location (mm)</label>
+        <input type="number" id="deformationLocation" required />
+        <button type="submit">Calculate</button>
+      </form>
+      <div id="scenario1-result"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

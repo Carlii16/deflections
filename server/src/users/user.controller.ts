@@ -8,11 +8,11 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto } from 'src/dtos/create-user.dto';
-import { SigninUserDto } from 'src/dtos/signin-user.dto';
+import { CreateUserDto } from 'server/src/dtos/create-user.dto';
+import { SigninUserDto } from 'server/src/dtos/signin-user.dto';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from 'server/src/guards/auth.guard';
 
 @Controller('auth')
 export class UserController {

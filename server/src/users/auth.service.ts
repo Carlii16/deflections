@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { scrypt as _scrypt, randomBytes } from 'crypto';
-import { JWT_SECRET_KEY } from 'src/config';
-import { CreateUserDto } from 'src/dtos/create-user.dto';
-import { SigninUserDto } from 'src/dtos/signin-user.dto';
+import { JWT_SECRET_KEY } from 'server/src/config';
+import { CreateUserDto } from 'server/src/dtos/create-user.dto';
+import { SigninUserDto } from 'server/src/dtos/signin-user.dto';
 import { promisify } from 'util';
 import { UserService } from './user.service';
 import * as jwt from 'jsonwebtoken';
