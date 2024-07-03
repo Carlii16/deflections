@@ -7,27 +7,27 @@ export interface GetBeamOutput {
   /**
    * Width of the beam in millimeters
    */
-  beamWidthInMm: number;
+  beamWidthInM: number;
 
   /**
    * Height of the beam in millimeters
    */
-  beamHeightInMm: number;
+  beamHeightInM: number;
 
   /**
    * Length of the beam in millimeters
    */
-  beamLengthInMm: number;
+  beamLengthInM: number;
 
   /**
    * Weight of the beam in kilograms
    */
-  beamWeightInKg: number;
+  beamWeightInM: number;
 
   /**
    * Location of the mobile force in millimeters
    */
-  mobileForceLocationInMm: number;
+  mobileForceLocationInM: number;
 
   /**
    * Magnitude of the force
@@ -37,7 +37,7 @@ export interface GetBeamOutput {
   /**
    * Location for deformation calculation in millimeters
    */
-  deformationLocationInMm: number;
+  deformationLocationInM: number;
 
   /**
    * Deflection calculated for scenario one

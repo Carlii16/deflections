@@ -4,27 +4,27 @@ import { ScenarioTwoBeamInput } from 'server/src/interface/input/scenario-two-be
 export class ScenarioTwoBeamInputDto implements ScenarioTwoBeamInput {
   @IsNumber()
   @IsPositive()
-  beamWidthInMm: number;
+  beamWidthInM: number;
 
   @IsNumber()
   @IsPositive()
-  beamHeightInMm: number;
+  beamHeightInM: number;
 
   @IsNumber()
   @IsPositive()
-  beamLengthInMm: number;
+  beamLengthInM: number;
 
   @IsNumber()
   @IsPositive()
-  beamWeightInKg: number;
+  beamWeightInM: number;
 
   @IsNumber()
   @IsPositive()
-  deformationLocationInMm: number;
+  deformationLocationInM: number;
 
   @IsNumber()
   @IsPositive()
-  mobileForceLocationInMm: number;
+  mobileForceLocationInM: number;
 
   @IsNumber()
   @IsPositive()

@@ -7,27 +7,27 @@ export interface ScenarioOneBeamOutput {
   /**
    * Width of the beam in millimeters
    */
-  beamWidthInMm: number;
+  beamWidthInM: number;
 
   /**
    * Height of the beam in millimeters
    */
-  beamHeightInMm: number;
+  beamHeightInM: number;
 
   /**
    * Length of the beam in millimeters
    */
-  beamLengthInMm: number;
+  beamLengthInM: number;
 
   /**
    * Weight of the beam in kilograms
    */
-  beamWeightInKg: number;
+  beamWeightInM: number;
 
   /**
    * Location for deformation calculation in millimeters
    */
-  deformationLocationInMm: number;
+  deformationLocationInM: number;
 
   /**
    * Result for deflection scenario one

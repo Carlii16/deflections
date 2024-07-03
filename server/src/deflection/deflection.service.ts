@@ -22,16 +22,19 @@ export class DeflectionService {
   async calculateScenarioOneBeam(
     parameters: ScenarioOneBeamInputDto,
   ): Promise<ScenarioOneBeamOutput> {
-    const q = new Decimal(parameters.beamWeightInKg).times(9.81); // Convert weight to force
-    const L = new Decimal(parameters.beamLengthInMm).div(1000); // Convert mm to meters
-    const E = this.youngsModulus;
-    const I = new Decimal(parameters.beamWidthInMm)
-      .times(new Decimal(parameters.beamHeightInMm).pow(3))
-      .div(12)
-      .div(1e12); // Convert mm^4 to meters^4
+    const q = new Decimal(parameters.beamWeightInM); // Convert weight to force (N)
+    const L = new Decimal(parameters.beamLengthInM); // Beam length in meters (m)
+    const E = this.youngsModulus; // Young's modulus in N/m^2 (Pascals)
 
-    const x = new Decimal(parameters.deformationLocationInMm).div(1000); // Convert mm to meters
+    // Moment of inertia I = B * H^3 / 12
+    const b = new Decimal(parameters.beamWidthInM); // Beam width in meters (m)
+    const H = new Decimal(parameters.beamHeightInM); // Beam height in meters (m)
+    const I = b.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
 
+    // Deformation location in meters (m)
+    const x = new Decimal(parameters.deformationLocationInM); // Deformation location in meters (m)
+
+    // Formula: (q*L^4)/(24*(E*I))*(x/L-2*(x^3)/(L^3)+(x^4)/(L^4))
     const term1 = q.times(L.pow(4)).div(24).div(E.times(I));
     const term2 = x
       .div(L)
@@ -40,30 +43,26 @@ export class DeflectionService {
 
     const scenarioOne = term1.times(term2);
 
+    // Create and save the DeflectionEntity with results in meters (m)
     const deflectionEntity = new DeflectionEntity();
-    deflectionEntity.beamWeightInKg = parameters.beamWeightInKg;
-    deflectionEntity.beamLengthInMm = parameters.beamLengthInMm;
-    deflectionEntity.beamWidthInMm = parameters.beamWidthInMm;
-    deflectionEntity.beamHeightInMm = parameters.beamHeightInMm;
-    deflectionEntity.deformationLocationInMm =
-      parameters.deformationLocationInMm;
-    deflectionEntity.deflectionOne = scenarioOne.toNumber();
+    deflectionEntity.beamWeightInM = parameters.beamWeightInM;
+    deflectionEntity.beamLengthInM = parameters.beamLengthInM;
+    deflectionEntity.beamWidthInM = parameters.beamWidthInM;
+    deflectionEntity.beamHeightInM = parameters.beamHeightInM;
+    deflectionEntity.deformationLocationInM = parameters.deformationLocationInM;
+    deflectionEntity.deflectionOne = scenarioOne.toNumber(); // Deflection in meters (m)
 
-    // Log the entity before saving
-    console.log('Deflection entity before saving:', deflectionEntity);
-
+    // Save the entity in the database
     const savedEntity = await this.deflectionRepository.save(deflectionEntity);
 
-    // Log the saved entity
-    console.log('Saved deflection entity:', savedEntity);
-
+    // Prepare output with results in meters (m)
     const output: ScenarioOneBeamOutput = {
       id: savedEntity.id,
-      beamWidthInMm: savedEntity.beamWidthInMm,
-      beamHeightInMm: savedEntity.beamHeightInMm,
-      beamLengthInMm: savedEntity.beamLengthInMm,
-      beamWeightInKg: savedEntity.beamWeightInKg,
-      deformationLocationInMm: savedEntity.deformationLocationInMm,
+      beamWidthInM: savedEntity.beamWidthInM,
+      beamHeightInM: savedEntity.beamHeightInM,
+      beamLengthInM: savedEntity.beamLengthInM,
+      beamWeightInM: savedEntity.beamWeightInM,
+      deformationLocationInM: savedEntity.deformationLocationInM,
       deflectionOne: savedEntity.deflectionOne,
     };
 
@@ -73,30 +72,31 @@ export class DeflectionService {
   async calculateScenarioTwoBeam(
     parameters: ScenarioTwoBeamInputDto,
   ): Promise<ScenarioTwoBeamOutput> {
-    const P = new Decimal(parameters.force); // Force in N
-    const b = new Decimal(parameters.beamWidthInMm).div(1000); // Convert mm to meters
-    const L = new Decimal(parameters.beamLengthInMm).div(1000); // Convert mm to meters
-    const E = this.youngsModulus;
-    const I = new Decimal(parameters.beamWidthInMm)
-      .times(new Decimal(parameters.beamHeightInMm).pow(3))
-      .div(12)
-      .div(1e12); // Convert mm^4 to meters^4
+    const P = new Decimal(parameters.force); // Force in Newtons (N)
+    const b = new Decimal(parameters.beamWidthInM); // Beam width in meters (m)
+    const L = new Decimal(parameters.beamLengthInM); // Beam length in meters (m)
+    const E = this.youngsModulus; // Young's modulus in N/m^2 (Pascals)
 
-    const x = new Decimal(parameters.deformationLocationInMm).div(1000); // Convert mm to meters
-    const a = new Decimal(parameters.mobileForceLocationInMm).div(1000); // Convert mm to meters
+    // Moment of inertia I = B * H^3 / 12
+    const H = new Decimal(parameters.beamHeightInM); // Beam height in meters (m)
+    const I = b.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
+
+    // Deformation and mobile force location in meters (m)
+    const x = new Decimal(parameters.deformationLocationInM); // Deformation location in meters (m)
+    const a = new Decimal(parameters.mobileForceLocationInM); // Mobile force location in meters (m)
 
     let scenarioTwo: Decimal;
 
-    if (x.greaterThan(0) && x.lessThan(a)) {
+    if (x < a) {
       scenarioTwo = P.times(b)
         .times(x)
         .div(6)
         .div(L)
         .div(E.times(I))
-        .times(L.pow(2).minus(b.pow(2)).minus(x.pow(2)));
-    } else if (x.greaterThan(a) && x.lessThan(L)) {
+        .times(L.pow(2).minus(b.pow(2)).minus(x.pow(2)))
+        .times(1000); // Convert to millimeters (mm)
+    } else {
       scenarioTwo = P.times(b)
-        .times(x)
         .div(6)
         .div(L)
         .div(E.times(I))
@@ -104,33 +104,33 @@ export class DeflectionService {
           L.div(b)
             .times(x.minus(a).pow(3))
             .plus(L.pow(2).minus(b.pow(2)).times(x).minus(x.pow(3))),
-        );
-    } else {
-      scenarioTwo = new Decimal(0);
+        )
+        .times(1000); // Convert to millimeters (mm)
     }
 
+    // Create and save the DeflectionEntity with results in meters (m)
     const deflectionEntity = new DeflectionEntity();
-    deflectionEntity.beamWeightInKg = parameters.beamWeightInKg;
-    deflectionEntity.beamLengthInMm = parameters.beamLengthInMm;
-    deflectionEntity.beamWidthInMm = parameters.beamWidthInMm;
-    deflectionEntity.beamHeightInMm = parameters.beamHeightInMm;
-    deflectionEntity.deformationLocationInMm =
-      parameters.deformationLocationInMm;
-    deflectionEntity.mobileForceLocationInMm =
-      parameters.mobileForceLocationInMm;
+    deflectionEntity.beamWidthInM = parameters.beamWidthInM;
+    deflectionEntity.beamHeightInM = parameters.beamHeightInM;
+    deflectionEntity.beamLengthInM = parameters.beamLengthInM;
+    deflectionEntity.beamWeightInM = parameters.beamWeightInM;
+    deflectionEntity.deformationLocationInM = parameters.deformationLocationInM;
+    deflectionEntity.mobileForceLocationInM = parameters.mobileForceLocationInM;
     deflectionEntity.force = parameters.force;
-    deflectionEntity.deflectionTwo = scenarioTwo.toNumber();
+    deflectionEntity.deflectionTwo = scenarioTwo.toNumber(); // Deflection in millimeters (mm)
 
+    // Save the entity in the database
     const savedEntity = await this.deflectionRepository.save(deflectionEntity);
 
+    // Prepare output with results in meters (m)
     const output: ScenarioTwoBeamOutput = {
       id: savedEntity.id,
-      beamWidthInMm: savedEntity.beamWidthInMm,
-      beamHeightInMm: savedEntity.beamHeightInMm,
-      beamLengthInMm: savedEntity.beamLengthInMm,
-      beamWeightInKg: savedEntity.beamWeightInKg,
-      deformationLocationInMm: savedEntity.deformationLocationInMm,
-      mobileForceLocationInMm: savedEntity.mobileForceLocationInMm,
+      beamWidthInM: savedEntity.beamWidthInM,
+      beamWeightInM: savedEntity.beamWeightInM,
+      beamHeightInM: savedEntity.beamHeightInM,
+      beamLengthInM: savedEntity.beamLengthInM,
+      deformationLocationInM: savedEntity.deformationLocationInM,
+      mobileForceLocationInM: savedEntity.mobileForceLocationInM,
       force: savedEntity.force,
       deflectionTwo: savedEntity.deflectionTwo,
     };
@@ -141,19 +141,21 @@ export class DeflectionService {
   async calculateScenarioThreeBeam(
     parameters: ScenarioThreeBeamInputDto,
   ): Promise<ScenarioThreeBeamOutput> {
-    const q = new Decimal(parameters.beamWeightInKg).times(9.81); // Convert weight to force
-    const L = new Decimal(parameters.beamLengthInMm).div(1000); // Convert mm to meters
-    const E = this.youngsModulus;
-    const I = new Decimal(parameters.beamWidthInMm)
-      .times(new Decimal(parameters.beamHeightInMm).pow(3))
-      .div(12)
-      .div(1e12); // Convert mm^4 to meters^4
+    const q = new Decimal(parameters.beamWeightInM).times(9.81); // Convert weight to force (N)
+    const L = new Decimal(parameters.beamLengthInM); // Beam length in meters (m)
+    const E = this.youngsModulus; // Young's modulus in N/m^2 (Pascals)
 
-    const x = new Decimal(parameters.deformationLocationInMm).div(1000); // Convert mm to meters
-    const a = new Decimal(parameters.mobileForceLocationInMm).div(1000); // Convert mm to meters
-    const P = new Decimal(parameters.force); // Force in N
-    const b = new Decimal(parameters.beamWidthInMm).div(1000); // Convert mm to meters
+    // Moment of inertia I = B * H^3 / 12
+    const b = new Decimal(parameters.beamWidthInM); // Beam width in meters (m)
+    const H = new Decimal(parameters.beamHeightInM); // Beam height in meters (m)
+    const I = b.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
 
+    // Deformation and mobile force location in meters (m)
+    const x = new Decimal(parameters.deformationLocationInM); // Deformation location in meters (m)
+    const a = new Decimal(parameters.mobileForceLocationInM); // Mobile force location in meters (m)
+    const P = new Decimal(parameters.force); // Force in Newtons (N)
+
+    // Scenario One calculation
     const term1 = q.times(L.pow(4)).div(24).div(E.times(I));
     const term2 = x
       .div(L)
@@ -162,18 +164,19 @@ export class DeflectionService {
 
     const scenarioOne = term1.times(term2);
 
+    // Scenario Two calculation
     let scenarioTwo: Decimal;
 
-    if (x.greaterThan(0) && x.lessThan(a)) {
+    if (x < a) {
       scenarioTwo = P.times(b)
         .times(x)
         .div(6)
         .div(L)
         .div(E.times(I))
-        .times(L.pow(2).minus(b.pow(2)).minus(x.pow(2)));
-    } else if (x.greaterThan(a) && x.lessThan(L)) {
+        .times(L.pow(2).minus(b.pow(2)).minus(x.pow(2)))
+        .times(1000); // Convert to millimeters (mm)
+    } else {
       scenarioTwo = P.times(b)
-        .times(x)
         .div(6)
         .div(L)
         .div(E.times(I))
@@ -181,36 +184,37 @@ export class DeflectionService {
           L.div(b)
             .times(x.minus(a).pow(3))
             .plus(L.pow(2).minus(b.pow(2)).times(x).minus(x.pow(3))),
-        );
-    } else {
-      scenarioTwo = new Decimal(0);
+        )
+        .times(1000); // Convert to millimeters (mm)
     }
 
+    // Combine Scenario One and Scenario Two results
     const scenarioThreeResult = scenarioOne.plus(scenarioTwo);
 
+    // Create and save the DeflectionEntity with results in meters (m)
     const deflectionEntity = new DeflectionEntity();
-    deflectionEntity.beamWidthInMm = parameters.beamWidthInMm;
-    deflectionEntity.beamHeightInMm = parameters.beamHeightInMm;
-    deflectionEntity.beamLengthInMm = parameters.beamLengthInMm;
-    deflectionEntity.beamWeightInKg = parameters.beamWeightInKg;
-    deflectionEntity.mobileForceLocationInMm =
-      parameters.mobileForceLocationInMm;
+    deflectionEntity.beamWidthInM = parameters.beamWidthInM;
+    deflectionEntity.beamHeightInM = parameters.beamHeightInM;
+    deflectionEntity.beamLengthInM = parameters.beamLengthInM;
+    deflectionEntity.beamWeightInM = parameters.beamWeightInM;
+    deflectionEntity.mobileForceLocationInM = parameters.mobileForceLocationInM;
     deflectionEntity.force = parameters.force;
-    deflectionEntity.deformationLocationInMm =
-      parameters.deformationLocationInMm;
+    deflectionEntity.deformationLocationInM = parameters.deformationLocationInM;
     deflectionEntity.deflectionThree = scenarioThreeResult.toNumber();
 
+    // Save the entity in the database
     const savedEntity = await this.deflectionRepository.save(deflectionEntity);
 
+    // Prepare output with results in meters (m)
     const output: ScenarioThreeBeamOutput = {
       id: savedEntity.id,
-      beamWidthInMm: savedEntity.beamWidthInMm,
-      beamHeightInMm: savedEntity.beamHeightInMm,
-      beamLengthInMm: savedEntity.beamLengthInMm,
-      beamWeightInKg: savedEntity.beamWeightInKg,
-      mobileForceLocationInMm: savedEntity.mobileForceLocationInMm,
+      beamWidthInM: savedEntity.beamWidthInM,
+      beamHeightInM: savedEntity.beamHeightInM,
+      beamLengthInM: savedEntity.beamLengthInM,
+      beamWeightInM: savedEntity.beamWeightInM,
+      mobileForceLocationInM: savedEntity.mobileForceLocationInM,
       force: savedEntity.force,
-      deformationLocationInMm: savedEntity.deformationLocationInMm,
+      deformationLocationInM: savedEntity.deformationLocationInM,
       deflectionThree: savedEntity.deflectionThree,
     };
 
@@ -246,13 +250,13 @@ export class DeflectionService {
 
     const result: GetBeamOutput[] = queryResult.map((entity) => ({
       id: entity.id,
-      beamWidthInMm: entity.beamWidthInMm,
-      beamHeightInMm: entity.beamHeightInMm,
-      beamLengthInMm: entity.beamLengthInMm,
-      beamWeightInKg: entity.beamWeightInKg,
-      mobileForceLocationInMm: entity.mobileForceLocationInMm,
+      beamWidthInM: entity.beamWidthInM,
+      beamHeightInM: entity.beamHeightInM,
+      beamLengthInM: entity.beamLengthInM,
+      beamWeightInM: entity.beamWeightInM,
+      mobileForceLocationInM: entity.mobileForceLocationInM,
       force: entity.force,
-      deformationLocationInMm: entity.deformationLocationInMm,
+      deformationLocationInM: entity.deformationLocationInM,
       deflectionOne: entity.deflectionOne,
       deflectionTwo: entity.deflectionTwo,
       deflectionThree: entity.deflectionThree,

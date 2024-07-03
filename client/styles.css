@@ -1,56 +1,17 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  color: #333;
 }
 
-.container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #f9f9f9;
-}
-
-h2 {
-  text-align: center;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  margin-top: 10px;
-}
-
-input {
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  padding: 10px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 5px;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
+/* Navigation Styles */
 nav {
-  background: #007bff;
-  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 0;
 }
 
 nav ul {
@@ -58,22 +19,73 @@ nav ul {
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
 }
 
 nav ul li {
-  margin: 0 10px;
+  display: inline;
 }
 
 nav ul li a {
   color: white;
   text-decoration: none;
+  padding: 10px 20px;
+  display: block;
 }
 
 nav ul li a:hover {
-  text-decoration: underline;
+  background-color: #0056b3;
 }
 
-#scenario1-result {
-  margin-top: 20px;
+/* Form Styles */
+form {
+  background-color: white;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input[type='number'] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Result Paragraph Styles */
+p#scenarioOneResult,
+p#scenarioTwoResult,
+p#scenarioThreeResult {
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: center;
 }

@@ -4,21 +4,21 @@ import { ScenarioOneBeamInput } from 'server/src/interface/input/scenario-one-be
 export class ScenarioOneBeamInputDto implements ScenarioOneBeamInput {
   @IsNumber()
   @IsPositive()
-  beamWidthInMm: number;
+  beamWidthInM: number;
 
   @IsNumber()
   @IsPositive()
-  beamHeightInMm: number;
+  beamHeightInM: number;
 
   @IsNumber()
   @IsPositive()
-  beamLengthInMm: number;
+  beamLengthInM: number;
 
   @IsNumber()
   @IsPositive()
-  beamWeightInKg: number;
+  beamWeightInM: number;
 
   @IsNumber()
   @IsPositive()
-  deformationLocationInMm: number;
+  deformationLocationInM: number;
 }

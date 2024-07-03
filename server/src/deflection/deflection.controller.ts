@@ -11,7 +11,7 @@ import { GetBeamOutput } from 'server/src/interface/output/get-beam-output';
 import { AuthGuard } from 'server/src/guards/auth.guard';
 
 @Controller('deflections')
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 export class DeflectionController {
   constructor(private readonly deflectionService: DeflectionService) {}
 

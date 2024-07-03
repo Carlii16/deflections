@@ -7,25 +7,25 @@ export class DeflectionEntity implements Deflection {
   id: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
-  beamWidthInMm: number;
+  beamWidthInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
-  beamHeightInMm: number;
+  beamHeightInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
-  beamLengthInMm: number;
+  beamLengthInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
-  beamWeightInKg: number;
+  beamWeightInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
-  mobileForceLocationInMm: number;
+  mobileForceLocationInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
   force: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
-  deformationLocationInMm: number;
+  deformationLocationInM: number;
 
   @Column({ type: 'decimal', precision: 18, scale: 15, nullable: true })
   deflectionOne: number;

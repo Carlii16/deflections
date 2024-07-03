@@ -1,69 +1,110 @@
 document.addEventListener('DOMContentLoaded', function () {
-  function handleScenarioForm(formId, endpoint, resultId) {
-    const form = document.getElementById(formId);
-    if (form) {
-      form.addEventListener('submit', async function (event) {
-        event.preventDefault();
+  const signInForm = document.getElementById('signInForm');
+  const signUpForm = document.getElementById('signUpForm');
+  const signOutLink = document.getElementById('signOutLink');
+  const signInLink = document.getElementById('signInLink');
+  const signUpLink = document.getElementById('signUpLink');
 
-        const beamLengthInMetersInput =
-          document.getElementById('beamLengthInMeters');
-        const fixedEndLocationInMmInput = document.getElementById(
-          'fixedEndLocationInMm',
-        );
-        const mobileForceLocationInMmInput = document.getElementById(
-          'mobileForceLocationInMm',
-        );
-        const forceInput = document.getElementById('force');
+  const apiUrl = 'http://localhost:3001';
 
-        if (
-          !beamLengthInMetersInput ||
-          !fixedEndLocationInMmInput ||
-          !mobileForceLocationInMmInput ||
-          !forceInput
-        ) {
-          console.error('One or more form inputs not found.');
-          return;
-        }
-
-        const parameters = {
-          beamLengthInMeters: beamLengthInMetersInput.value,
-          fixedEndLocationInMm: fixedEndLocationInMmInput.value,
-          mobileForceLocationInMm: mobileForceLocationInMmInput.value,
-          force: forceInput.value,
-        };
-
-        try {
-          const response = await fetch(
-            `http://localhost:3001/deflections/${endpoint}`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(parameters),
-            },
-          );
-
-          if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message);
-          }
-
-          const result = await response.json();
-          document.getElementById(
-            resultId,
-          ).innerText = `Deflection: ${result.deflection}`;
-        } catch (error) {
-          alert(`Failed to calculate ${endpoint}. Please try again.`);
-          console.error(`${endpoint} calculation error:`, error);
-        }
-      });
-    } else {
-      console.error(`Form with ID '${formId}' not found.`);
-    }
+  const token = localStorage.getItem('token');
+  if (token) {
+    showAuthenticatedState();
+  } else {
+    showUnauthenticatedState();
   }
 
-  handleScenarioForm('scenario1-form', 'scenario-one', 'scenario1-result');
-  handleScenarioForm('scenario2-form', 'scenario-two', 'scenario2-result');
-  handleScenarioForm('scenario3-form', 'scenario-three', 'scenario3-result');
+  if (signInForm) {
+    signInForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(signInForm);
+      const email = formData.get('email');
+      const password = formData.get('password');
+
+      try {
+        const response = await fetch(`${apiUrl}/auth/signin`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || 'Invalid email or password. Please try again.',
+          );
+        }
+
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        console.log(data.token);
+        showAuthenticatedState();
+
+        window.location.href = 'index.html';
+      } catch (error) {
+        console.error('Sign In Error:', error);
+        alert(error.message);
+      }
+    });
+  }
+
+  if (signUpForm) {
+    signUpForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(signUpForm);
+      const firstName = formData.get('firstName');
+      const lastName = formData.get('lastName');
+      const email = formData.get('email');
+      const password = formData.get('password');
+
+      try {
+        const response = await fetch(`${apiUrl}/auth/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ firstName, lastName, email, password }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || 'Failed to register. Please try again.',
+          );
+        }
+
+        // Optionally, you can show a success message or handle the UI accordingly
+        alert('Registration successful. Please sign in.');
+        signUpForm.reset(); // Clear the sign-up form fields
+      } catch (error) {
+        console.error('Sign Up Error:', error);
+        alert(error.message);
+      }
+    });
+  }
+
+  if (signOutLink) {
+    signOutLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      localStorage.removeItem('accessToken'); // Remove the access token
+      showUnauthenticatedState();
+      // Redirect to a new page or refresh the current one after sign-out
+      location.reload();
+    });
+  }
+
+  // Helper functions to show/hide elements based on authentication state
+  function showAuthenticatedState() {
+    if (signInLink) signInLink.style.display = 'none';
+    if (signUpLink) signUpLink.style.display = 'none';
+    if (signOutLink) signOutLink.style.display = 'block';
+  }
+
+  function showUnauthenticatedState() {
+    if (signInLink) signInLink.style.display = 'block';
+    if (signUpLink) signUpLink.style.display = 'block';
+    if (signOutLink) signOutLink.style.display = 'none';
+  }
 });

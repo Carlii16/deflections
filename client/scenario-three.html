@@ -8,83 +8,98 @@
   </head>
   <body>
     <nav>
-      <ul>
-        <li><a href="home.html">Home</a></li>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
         <li><a href="scenario-one.html">Scenario One</a></li>
         <li><a href="scenario-two.html">Scenario Two</a></li>
         <li><a href="scenario-three.html">Scenario Three</a></li>
+        <li style="float: right">
+          <a id="signOutLink" href="#" style="display: none">Sign Out</a>
+        </li>
+        <li style="float: right">
+          <a id="signInLink" href="signin.html">Sign In</a>
+        </li>
+        <li style="float: right">
+          <a id="signUpLink" href="signup.html">Sign Up</a>
+        </li>
       </ul>
     </nav>
-    <div class="container">
-      <h1>Scenario Three</h1>
-      <form id="scenario3-form">
-        <!-- Form inputs for Scenario Three -->
-        <div class="form-group">
-          <label for="beamWidthInMm">Beam Width (mm):</label>
-          <input
-            type="number"
-            id="beamWidthInMm"
-            name="beamWidthInMm"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="beamHeightInMm">Beam Height (mm):</label>
-          <input
-            type="number"
-            id="beamHeightInMm"
-            name="beamHeightInMm"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="beamLengthInMm">Beam Length (mm):</label>
-          <input
-            type="number"
-            id="beamLengthInMm"
-            name="beamLengthInMm"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="beamWeightInKg">Beam Weight (kg):</label>
-          <input
-            type="number"
-            id="beamWeightInKg"
-            name="beamWeightInKg"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="deformationLocationInMm"
-            >Deformation Location (mm):</label
-          >
-          <input
-            type="number"
-            id="deformationLocationInMm"
-            name="deformationLocationInMm"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="mobileForceLocationInMm"
-            >Mobile Force Location (mm):</label
-          >
-          <input
-            type="number"
-            id="mobileForceLocationInMm"
-            name="mobileForceLocationInMm"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="force">Force (Newtons):</label>
-          <input type="number" id="force" name="force" required />
-        </div>
-        <button type="submit">Calculate Deflection</button>
-      </form>
-      <div id="result"></div>
-    </div>
+    <form id="scenarioThreeForm">
+      <label for="beamWeightInM">Beam Weight (M):</label>
+      <input
+        type="number"
+        id="beamWeightInM"
+        name="beamWeightInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="beamLengthInM">Beam Length (M):</label>
+      <input
+        type="number"
+        id="beamLengthInM"
+        name="beamLengthInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="beamWidthInM">Beam Width (M):</label>
+      <input
+        type="number"
+        id="beamWidthInM"
+        name="beamWidthInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="beamHeightInM">Beam Height (M):</label>
+      <input
+        type="number"
+        id="beamHeightInM"
+        name="beamHeightInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="deformationLocationInM">Deformation Location (M):</label>
+      <input
+        type="number"
+        id="deformationLocationInM"
+        name="deformationLocationInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="mobileForceLocationInM">Mobile Force Location (M):</label>
+      <input
+        type="number"
+        id="mobileForceLocationInM"
+        name="mobileForceLocationInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="force">Force (N):</label>
+      <input
+        type="number"
+        id="force"
+        name="force"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <button type="submit">Calculate Deflection</button>
+    </form>
+    <p id="scenarioThreeResult"></p>
+
+    <script src="script-scenario-three.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
