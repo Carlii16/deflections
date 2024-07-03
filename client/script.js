@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (signOutLink) {
     signOutLink.addEventListener('click', function (event) {
       event.preventDefault();
-      localStorage.removeItem('accessToken'); // Remove the access token
+      localStorage.removeItem('token'); // Remove the access token
       showUnauthenticatedState();
       // Redirect to a new page or refresh the current one after sign-out
-      location.reload();
+      location.href = 'signin.html';
     });
   }
 

@@ -25,6 +25,11 @@ export interface ScenarioThreeBeamOutput {
   beamWeightInM: number;
 
   /**
+   * Weight of the beam in kilograms
+   */
+  beamWidthForMomentOfInertiaInM: number;
+
+  /**
    * Location of the mobile force in millimeters
    */
   mobileForceLocationInM: number;

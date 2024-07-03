@@ -24,8 +24,17 @@
         </li>
       </ul>
     </nav>
+    <div class="container">
+      <h1>
+        The third scenario explore deflection under the combined action of force
+        and the beam's own weight:
+      </h1>
+      <img src="files/scenario-one.jpg" />
+      <img src="files/scenario-two.jpg" />
+      <img src="files/scenario-three.jpg" />
+    </div>
     <form id="scenarioThreeForm">
-      <label for="beamWeightInM">Beam Weight (M):</label>
+      <label for="beamWeightInM">q (beam weight in meters):</label>
       <input
         type="number"
         id="beamWeightInM"
@@ -35,7 +44,7 @@
         step="0.01"
       />
       <br />
-      <label for="beamLengthInM">Beam Length (M):</label>
+      <label for="beamLengthInM">L (beam length in meters):</label>
       <input
         type="number"
         id="beamLengthInM"
@@ -45,7 +54,7 @@
         step="0.01"
       />
       <br />
-      <label for="beamWidthInM">Beam Width (M):</label>
+      <label for="beamWidthInM">b (beam width in meters):</label>
       <input
         type="number"
         id="beamWidthInM"
@@ -55,7 +64,19 @@
         step="0.01"
       />
       <br />
-      <label for="beamHeightInM">Beam Height (M):</label>
+      <label for="beamWidthForMomentOfInertiaInM"
+        >B (beam width for moment of inertia in meters):</label
+      >
+      <input
+        type="number"
+        id="beamWidthForMomentOfInertiaInM"
+        name="beamWidthForMomentOfInertiaInM"
+        required
+        min="0"
+        step="0.01"
+      />
+      <br />
+      <label for="beamHeightInM">H (beam height in meters):</label>
       <input
         type="number"
         id="beamHeightInM"
@@ -65,7 +86,9 @@
         step="0.01"
       />
       <br />
-      <label for="deformationLocationInM">Deformation Location (M):</label>
+      <label for="deformationLocationInM"
+        >x (deformation location in meters):</label
+      >
       <input
         type="number"
         id="deformationLocationInM"
@@ -75,7 +98,9 @@
         step="0.01"
       />
       <br />
-      <label for="mobileForceLocationInM">Mobile Force Location (M):</label>
+      <label for="mobileForceLocationInM"
+        >a (mobile force location in meters):</label
+      >
       <input
         type="number"
         id="mobileForceLocationInM"
@@ -85,7 +110,7 @@
         step="0.01"
       />
       <br />
-      <label for="force">Force (N):</label>
+      <label for="force">P (force in Newtons):</label>
       <input
         type="number"
         id="force"

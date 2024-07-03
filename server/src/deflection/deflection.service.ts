@@ -76,10 +76,10 @@ export class DeflectionService {
     const b = new Decimal(parameters.beamWidthInM); // Beam width in meters (m)
     const L = new Decimal(parameters.beamLengthInM); // Beam length in meters (m)
     const E = this.youngsModulus; // Young's modulus in N/m^2 (Pascals)
-
+    const B = new Decimal(parameters.beamWidthForMomentOfInertiaInM);
     // Moment of inertia I = B * H^3 / 12
     const H = new Decimal(parameters.beamHeightInM); // Beam height in meters (m)
-    const I = b.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
+    const I = B.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
 
     // Deformation and mobile force location in meters (m)
     const x = new Decimal(parameters.deformationLocationInM); // Deformation location in meters (m)
@@ -113,7 +113,8 @@ export class DeflectionService {
     deflectionEntity.beamWidthInM = parameters.beamWidthInM;
     deflectionEntity.beamHeightInM = parameters.beamHeightInM;
     deflectionEntity.beamLengthInM = parameters.beamLengthInM;
-    deflectionEntity.beamWeightInM = parameters.beamWeightInM;
+    deflectionEntity.beamWidthForMomentOfInertiaInM =
+      parameters.beamWidthForMomentOfInertiaInM;
     deflectionEntity.deformationLocationInM = parameters.deformationLocationInM;
     deflectionEntity.mobileForceLocationInM = parameters.mobileForceLocationInM;
     deflectionEntity.force = parameters.force;
@@ -126,7 +127,8 @@ export class DeflectionService {
     const output: ScenarioTwoBeamOutput = {
       id: savedEntity.id,
       beamWidthInM: savedEntity.beamWidthInM,
-      beamWeightInM: savedEntity.beamWeightInM,
+      beamWidthForMomentOfInertiaInM:
+        savedEntity.beamWidthForMomentOfInertiaInM,
       beamHeightInM: savedEntity.beamHeightInM,
       beamLengthInM: savedEntity.beamLengthInM,
       deformationLocationInM: savedEntity.deformationLocationInM,
@@ -144,11 +146,12 @@ export class DeflectionService {
     const q = new Decimal(parameters.beamWeightInM).times(9.81); // Convert weight to force (N)
     const L = new Decimal(parameters.beamLengthInM); // Beam length in meters (m)
     const E = this.youngsModulus; // Young's modulus in N/m^2 (Pascals)
+    const B = new Decimal(parameters.beamWidthForMomentOfInertiaInM);
 
     // Moment of inertia I = B * H^3 / 12
     const b = new Decimal(parameters.beamWidthInM); // Beam width in meters (m)
     const H = new Decimal(parameters.beamHeightInM); // Beam height in meters (m)
-    const I = b.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
+    const I = B.times(H.pow(3)).div(12); // Moment of inertia in meters^4 (m^4)
 
     // Deformation and mobile force location in meters (m)
     const x = new Decimal(parameters.deformationLocationInM); // Deformation location in meters (m)
@@ -197,6 +200,8 @@ export class DeflectionService {
     deflectionEntity.beamHeightInM = parameters.beamHeightInM;
     deflectionEntity.beamLengthInM = parameters.beamLengthInM;
     deflectionEntity.beamWeightInM = parameters.beamWeightInM;
+    deflectionEntity.beamWidthForMomentOfInertiaInM =
+      parameters.beamWidthForMomentOfInertiaInM;
     deflectionEntity.mobileForceLocationInM = parameters.mobileForceLocationInM;
     deflectionEntity.force = parameters.force;
     deflectionEntity.deformationLocationInM = parameters.deformationLocationInM;
@@ -212,6 +217,8 @@ export class DeflectionService {
       beamHeightInM: savedEntity.beamHeightInM,
       beamLengthInM: savedEntity.beamLengthInM,
       beamWeightInM: savedEntity.beamWeightInM,
+      beamWidthForMomentOfInertiaInM:
+        savedEntity.beamWidthForMomentOfInertiaInM,
       mobileForceLocationInM: savedEntity.mobileForceLocationInM,
       force: savedEntity.force,
       deformationLocationInM: savedEntity.deformationLocationInM,

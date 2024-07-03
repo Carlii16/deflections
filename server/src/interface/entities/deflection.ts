@@ -34,6 +34,8 @@ export interface Deflection {
    */
   force: number;
 
+  beamWidthForMomentOfInertiaInM: number;
+
   /**
    *  Location for deformation calculation in millimeters
    */

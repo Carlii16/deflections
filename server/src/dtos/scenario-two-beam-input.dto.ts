@@ -16,7 +16,7 @@ export class ScenarioTwoBeamInputDto implements ScenarioTwoBeamInput {
 
   @IsNumber()
   @IsPositive()
-  beamWeightInM: number;
+  beamWidthForMomentOfInertiaInM: number;
 
   @IsNumber()
   @IsPositive()

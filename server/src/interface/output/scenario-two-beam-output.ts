@@ -22,7 +22,7 @@ export interface ScenarioTwoBeamOutput {
   /**
    * Weight of the beam in kilograms
    */
-  beamWeightInM: number;
+  beamWidthForMomentOfInertiaInM: number;
 
   /**
    * Location for deformation calculation in millimeters

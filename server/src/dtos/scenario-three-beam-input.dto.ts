@@ -20,6 +20,10 @@ export class ScenarioThreeBeamInputDto implements ScenarioThreeBeamInput {
 
   @IsNumber()
   @IsPositive()
+  beamWidthForMomentOfInertiaInM: number;
+
+  @IsNumber()
+  @IsPositive()
   deformationLocationInM: number;
 
   @IsNumber()

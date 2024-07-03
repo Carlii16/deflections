@@ -16,6 +16,9 @@ export class DeflectionEntity implements Deflection {
   beamLengthInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })
+  beamWidthForMomentOfInertiaInM: number;
+
+  @Column({ type: 'decimal', precision: 10, nullable: true })
   beamWeightInM: number;
 
   @Column({ type: 'decimal', precision: 10, nullable: true })

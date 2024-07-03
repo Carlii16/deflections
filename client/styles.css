@@ -89,3 +89,19 @@ p#scenarioThreeResult {
   margin: 20px auto;
   text-align: center;
 }
+
+.container {
+  color: #161d2a;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+.form-group {
+  background-color: white;
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 5px;
+}
