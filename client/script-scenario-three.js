@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const beamWeightInM = parseFloat(
         document.getElementById('beamWeightInM').value,
       );
+      const beamWidthForMomentOfInertiaInM = parseFloat(
+        document.getElementById('beamWidthForMomentOfInertiaInM').value,
+      );
+
       const beamLengthInM = parseFloat(
         document.getElementById('beamLengthInM').value,
       );
@@ -47,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             beamLengthInM,
             beamWidthInM,
             beamHeightInM,
+            beamWidthForMomentOfInertiaInM,
             deformationLocationInM,
             mobileForceLocationInM,
             force,

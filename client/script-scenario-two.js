@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
     scenarioTwoForm.addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      const beamWeightInM = parseFloat(
-        document.getElementById('beamWeightInM').value,
+      const beamWidthForMomentOfInertiaInM = parseFloat(
+        document.getElementById('beamWidthForMomentOfInertiaInM').value,
       );
       const beamLengthInM = parseFloat(
         document.getElementById('beamLengthInM').value,
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            beamWeightInM,
+            beamWidthForMomentOfInertiaInM,
             beamLengthInM,
             beamWidthInM,
             beamHeightInM,
