@@ -20,9 +20,9 @@ export interface Deflection {
   beamLengthInM: number;
 
   /**
-   * Weight of the beam in kilograms
+   * Mobile support position of the beam in millimeters
    */
-  beamWeightInM: number;
+  mobileSupportPositionInM: number;
 
   /**
    * Location of the mobile force in millimeters
@@ -33,8 +33,6 @@ export interface Deflection {
    * Magnitude of the force
    */
   force: number;
-
-  beamWidthForMomentOfInertiaInM: number;
 
   /**
    *  Location for deformation calculation in millimeters

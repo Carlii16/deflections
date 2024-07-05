@@ -15,10 +15,9 @@ export interface ScenarioTwoBeamInput {
   beamLengthInM: number;
 
   /**
-   * Weight of the beam in kilograms
+   * Mobile support position of the beam in millimeters
    */
-  beamWidthForMomentOfInertiaInM: number;
-
+  mobileSupportPositionInM: number;
   /**
    * Location for deformation calculation in millimeters
    */

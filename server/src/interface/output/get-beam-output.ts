@@ -20,9 +20,9 @@ export interface GetBeamOutput {
   beamLengthInM: number;
 
   /**
-   * Weight of the beam in kilograms
+   * Mobile support position of the beam in millimeters
    */
-  beamWeightInM: number;
+  mobileSupportPositionInM: number;
 
   /**
    * Location of the mobile force in millimeters

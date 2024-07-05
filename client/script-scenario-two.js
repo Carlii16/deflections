@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
     scenarioTwoForm.addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      const beamWidthForMomentOfInertiaInM = parseFloat(
-        document.getElementById('beamWidthForMomentOfInertiaInM').value,
+      const beamWidthInM = parseFloat(
+        document.getElementById('beamWidthInM').value,
       );
       const beamLengthInM = parseFloat(
         document.getElementById('beamLengthInM').value,
       );
-      const beamWidthInM = parseFloat(
-        document.getElementById('beamWidthInM').value,
+      const mobileSupportPositionInM = parseFloat(
+        document.getElementById('mobileSupportPositionInM').value,
       );
       const beamHeightInM = parseFloat(
         document.getElementById('beamHeightInM').value,
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            beamWidthForMomentOfInertiaInM,
+            mobileSupportPositionInM,
             beamLengthInM,
             beamWidthInM,
             beamHeightInM,
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
-        resultElement.textContent = `Deflection: ${data.deflectionTwo} mm`;
+        resultElement.textContent = `Deflection: ${data.deflectionTwo} m`;
       } catch (error) {
         console.error('Error in calculation:', error);
         alert(error.message);

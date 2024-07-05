@@ -16,11 +16,7 @@ export class ScenarioThreeBeamInputDto implements ScenarioThreeBeamInput {
 
   @IsNumber()
   @IsPositive()
-  beamWeightInM: number;
-
-  @IsNumber()
-  @IsPositive()
-  beamWidthForMomentOfInertiaInM: number;
+  mobileSupportPositionInM: number;
 
   @IsNumber()
   @IsPositive()

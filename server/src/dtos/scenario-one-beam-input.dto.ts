@@ -4,7 +4,7 @@ import { ScenarioOneBeamInput } from 'server/src/interface/input/scenario-one-be
 export class ScenarioOneBeamInputDto implements ScenarioOneBeamInput {
   @IsNumber()
   @IsPositive()
-  beamWidthInM: number;
+  mobileSupportPositionInM: number;
 
   @IsNumber()
   @IsPositive()
@@ -16,7 +16,7 @@ export class ScenarioOneBeamInputDto implements ScenarioOneBeamInput {
 
   @IsNumber()
   @IsPositive()
-  beamWeightInM: number;
+  force: number;
 
   @IsNumber()
   @IsPositive()

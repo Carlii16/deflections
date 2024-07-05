@@ -15,14 +15,9 @@ export interface ScenarioThreeBeamInput {
   beamLengthInM: number;
 
   /**
-   * Weight of the beam in kilograms
+   * Mobile support position of the beam in millimeters
    */
-  beamWeightInM: number;
-
-  /**
-   * Weight of the beam in kilograms
-   */
-  beamWidthForMomentOfInertiaInM: number;
+  mobileSupportPositionInM: number;
 
   /**
    * Location of the mobile force in millimeters

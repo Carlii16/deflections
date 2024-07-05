@@ -20,14 +20,19 @@ export interface ScenarioOneBeamOutput {
   beamLengthInM: number;
 
   /**
-   * Weight of the beam in kilograms
+   * Mobile support position of the beam in millimeters
    */
-  beamWeightInM: number;
+  mobileSupportPositionInM: number;
 
   /**
    * Location for deformation calculation in millimeters
    */
   deformationLocationInM: number;
+
+  /**
+   * Force of the beam in kilograms
+   */
+  force: number;
 
   /**
    * Result for deflection scenario one

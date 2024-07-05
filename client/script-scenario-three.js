@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     scenarioThreeForm.addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      const beamWeightInM = parseFloat(
-        document.getElementById('beamWeightInM').value,
-      );
       const beamWidthForMomentOfInertiaInM = parseFloat(
         document.getElementById('beamWidthForMomentOfInertiaInM').value,
       );
@@ -47,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            beamWeightInM,
             beamLengthInM,
             beamWidthInM,
             beamHeightInM,
@@ -64,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
-        resultElement.textContent = `Deflection: ${data.deflectionThree} mm`;
+        resultElement.textContent = `Deflection: ${data.deflectionThree} m`;
       } catch (error) {
         console.error('Error in calculation:', error);
         alert(error.message);

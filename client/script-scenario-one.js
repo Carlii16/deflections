@@ -15,9 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     scenarioOneForm.addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      const beamWeightInM = parseFloat(
-        document.getElementById('beamWeightInM').value,
-      );
+      const force = parseFloat(document.getElementById('force').value);
       const beamLengthInM = parseFloat(
         document.getElementById('beamLengthInM').value,
       );
@@ -39,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            beamWeightInM,
+            force,
             beamLengthInM,
             beamWidthInM,
             beamHeightInM,
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
-        resultElement.textContent = `Deflection: ${data.deflectionOne} mm`;
+        resultElement.textContent = `Deflection: ${data.deflectionOne} m`;
       } catch (error) {
         console.error('Error in calculation:', error);
         alert(error.message);
